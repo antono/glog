@@ -1,5 +1,5 @@
-Glog - simplier than toto
-=========================
+Glog - blog your git
+====================
 
 Glog is Rack Middleware to serve directory of files as blog or site.
 
@@ -21,7 +21,7 @@ Use rack middleware as plugins:
     require 'rack/noie'
     use Rack::NoIE, :redirect => '/noie.html'
 
-    require 'rack/google\_analytics'
+    require 'rack/google_analytics'
     use Rack::GoogleAnalytics, 'UA-1234567-0'
 
 
