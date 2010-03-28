@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files = ['lib/glog.rb', 'lib/glog/page.rb', 'lib/glog/server.rb']
   s.add_runtime_dependency("rack",   [">= 1.1.0"])
   s.add_runtime_dependency("jadof",  [">= 0.1.6"])
-  s.add_runtime_dependency("haml",   [">= 2.2.0"])
+  s.add_runtime_dependency("haml",   [">= 2.2.22"])
   s.add_runtime_dependency("maruku", [">= 0.6.0"])
   s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
   s.add_development_dependency(%q<rack-test>, [">= 0.5.3"])
