@@ -2,66 +2,118 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Glog" do
 
-  let(:app) { create_from_fixture('example') }
-
   it "should have config accessor" do
     Glog.config = 'config'
     Glog.config.should == 'config'
   end
 
-  describe "Glog::Page" do
+  it "should respond to .env" do
+    Glog.should respond_to(:env)
+  end
+
+  describe Glog::Env do
+    it "should be tested"
+  end
+
+  describe Glog::Template do
+
+    subject { Glog::Template.wrap(Glog::Page.first, {}) }
+
+    it "should have accessors for page, template and locals" do
+      subject.locals = 'hello'
+      subject.locals.should == 'hello'
+      subject.template = '%strong hello'
+      subject.template.should == '%strong hello'
+      subject.locals = ['saluton']
+      subject.locals.should == ['saluton']
+    end
+
+    describe ".wrap(page)" do
+      it "should create new template object and assign page to @page" do
+        page = Glog::Page.first
+        described_class.wrap(page).page.should == page
+      end
+      
+      it "should assing template file as @template if page defines template" do
+        page = Glog::Page.first
+        File.stub!(:read).and_return(:yep)
+        page.template = 'itstemplate'
+        described_class.wrap(page).template.should == :yep
+      end
+      
+      it "should should find template for page if page is not defines template" do
+        pending
+      end
+    end
+
+    describe "#possible_paths_for(page_path)" do
+      it "should retun ordered possible template paths for page_path" do
+        subject.send(:possible_paths_for, 'very/nested/page/for/test').
+          should == [
+            'templates/very/nested/page/for/test.haml',    # <- twin template,
+            'templates/very/nested/page/for/default.haml', # should match path
+            'templates/very/nested/page/default.haml',     # and name of the page
+            'templates/very/nested/default.haml',
+            'templates/very/default.haml',
+            'templates/default.haml'
+          ]
+      end
+    end
+
+    describe "#find_for(path)" do
+      it "should return first found template as string" do
+        subject # calling lambda
+        matched_template = 'templates/very/nested/default.haml'
+        File.stub!(:exist?).and_return(false)
+        File.should_receive(:exist?).with(matched_template).and_return(true)
+        File.should_receive(:read).with(matched_template).and_return(:file)
+        subject.send(:find_for, 'very/nested/page').should be(:file)
+      end
+    end
+
+    describe "#render(path)" do
+      it "should render haml teplate from templates/{path} if path specified" do
+        template = "%strong ololo"
+        File.stub(:read).and_return(template)
+        subject.render('hello/world').should == "<strong>ololo</strong>\n"
+      end
+      it "should pass Glog::Env instance to any template as env variable"
+    end
+  end
+
+  describe Glog::Page do
     describe "Page.root" do
       it "should return root page defined in Glog.config" do
         Glog::Page.root.title.should == 'Hello All'
       end
     end
-    
-    describe "#template_path" do
-      describe "when template defined in file" do
-        it "should return templates/{Page#template}.haml" do
-          page = Glog::Page.get('template_test/template1_test')
-          page.should_not be_nil
-          page.template_path.should == 'templates/template1.haml'
-        end
+
+    describe "#path_with_parent" do
+      it "should return parent/name" do
+        page = Glog::Page.first
+        page.path_with_parent.should == File.join(page.parent, page.name)
       end
-      
-      describe "when Page#template is undefined" do
-        it "should should use default.html from tepmlates/{Page#parent}" do
-          page = Glog::Page.get("template_test/undefined_template")
-          page.parent.should == 'template_test'
-          page.template_path.should == "templates/#{page.parent}/default.haml"
-        end
-        
-        describe "if there is no defaut.html in templats/{Page#parent}" do
-          it "should inherit default.html template from parent dirs" do
-            page = Glog::Page.get("template_test/deep/template")
-            page.parent.should == 'template_test/deep'
-            page.template_path.should == "templates/template_test/default.haml"
-            # And very deep page...
-            page = Glog::Page.get("deep/deep/deep/page/with/undefined/template/here")
-            page.parent.should == 'deep/deep/deep/page/with/undefined/template'
-            page.template_path.should == "templates/default.haml"
-          end
-        end        
-      end      
     end
   end
 
-  describe "Glog::Server" do
+  describe Glog::Server do
+
     include Rack::Test::Methods
-        
+
+    let(:app) { create_from_fixture('example') }
+
     describe "GET /" do
       it "should be ok" do
         get '/'
         last_response.should be_ok
       end
-      
+
       it "should render text from page defined as root in Glog.config" do
         get '/'
         last_response.body.should =~ /Hello All/
       end
     end
-    
+
     describe "GET /some/dir" do
       it "should try to render /some/dir/index if index exists" do
         dir = 'spec/fixtures/example/pages/epo/2010'
@@ -71,12 +123,13 @@ describe "Glog" do
         last_response.should be_ok
         last_response.body.should match(/this is index/)
       end
-      
+
       it "should return 404 if no index found" do
-        get '/epo/2010'
-        last_response.should be_ok
-        last_response.body.should match(/this is index/)
+        get '/nonexistent_page'
+        last_response.should_not be_ok
+        last_response.body.should match(/404/)
       end
     end
+
   end # describe Server
 end # describe Glog

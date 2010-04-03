@@ -8,6 +8,8 @@ require 'spec/autorun'
 require 'spec/interop/test'
 require 'rack/test'
 
+require 'pp'
+
 def create_from_fixture(name)
   Dir.chdir(File.join(File.dirname(__FILE__), "fixtures", name))
   Glog.config = YAML.load_file('glog.yaml')
