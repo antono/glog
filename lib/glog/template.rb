@@ -21,22 +21,19 @@ module Glog
       end
     end
 
-    def render(path = nil)
+    def render(path = nil, locals = {})
       template = path ? File.read("templates" + File::SEPARATOR + path + '.haml') : @template
-      render_string(template, @locals)
+      render_string(template, locals)
     end
 
     private
 
     def render_string(string, locals = {})
-      Engine.new(string).render(self, @locals)
+      Engine.new(string).render(self, @locals.merge(locals))
     end
 
     def find_for(page_path)
-      puts "Searching for #{page_path}"
-      puts "Possible paths: #{possible_paths_for(page_path).to_yaml}"
       template_path = possible_paths_for(page_path).detect { |path| File.exist?(path) }
-      puts "Matched template: #{template_path}"
       File.read template_path || 'templates/default.haml'
     end
 

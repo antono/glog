@@ -12,5 +12,13 @@ module Glog
     def path?(other)
       path == other
     end
+
+    def development?
+      ENV['RACK_ENV'] == 'development'
+    end
+
+    def production?
+      ENV['RACK_ENV'] == 'production'
+    end
   end
 end

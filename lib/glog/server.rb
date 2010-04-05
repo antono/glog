@@ -12,13 +12,9 @@ module Glog
 
     def send_path(path)
       path = path[1..-1] # /my/page => my/page
-      # First trying to load page
       if page = Page.get(path)
-        puts page
         send_page(page)
-      # Then trying to load directory index if any
       elsif page = try_dir_index(path)
-        puts page
         send_page(page)
       else
         send_not_found
