@@ -6,14 +6,14 @@ module Glog
     def self.root
       get(Glog.config['root'])
     end
-    
+
     def render
       self.template == false ? super : wrap_with_template(super)
     end
-    
+
     def path_with_parent
       File.join(parent, name)
     end
-    
+
   end
 end

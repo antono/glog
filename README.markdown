@@ -24,6 +24,15 @@ Use rack middleware as plugins:
     require 'rack/google_analytics'
     use Rack::GoogleAnalytics, 'UA-1234567-0'
 
+Similar Projects
+----------------
+
+- [ruby] toto is a git-powered, minimalist blog engine for the hackers of Oz.
+  http://github.com/cloudhead/toto
+
+- [javascript] Wheat is a blogging engine that reads a git repo full of
+  markdown articles and presents them as a website.
+  http://github.com/creationix/wheat
 
 Note on Patches/Pull Requests
 -----------------------------

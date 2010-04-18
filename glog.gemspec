@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/antono/glog}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.files = %w(lib/glog.rb lib/glog/page.rb lib/glog/server.rb lib/glog/template.rb)
+  s.files = %w(lib/glog.rb lib/glog/page.rb lib/glog/server.rb lib/glog/template.rb lib/glog/env.rb)
   s.add_runtime_dependency("rack",   [">= 1.1.0"])
   s.add_runtime_dependency("jadof",  [">= 0.1.6"])
   s.add_runtime_dependency("haml",   [">= 2.2.22"])
