@@ -1,5 +1,5 @@
-Glog - blog your git
-====================
+JADOF + Rack = cms/blogging engine
+==================================
 
 Glog is Rack Middleware to serve directory of files as blog or site.
 
