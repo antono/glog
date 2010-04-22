@@ -62,6 +62,20 @@ describe Glog::Template do
       File.stub(:read).and_return(template)
       subject.render('hello/world').should == "<strong>ololo</strong>\n"
     end
-    it "should pass Glog::Env instance to any template as env variable"
+
+    it "should pass hash of locals to any template" do
+      subject.locals = { :env => { :ololo => 'hello' } }
+      template = "%strong= env[:ololo]"
+      File.stub(:read).and_return(template)
+      subject.render('hello/world').should == "<strong>hello</strong>\n"
+    end
+
+    it "should pass block to render engine if block given" do
+      template = "%strong= yield"
+      File.stub(:read).and_return(template)
+      subject.render('hello/world') do
+        'hello'
+      end.should == "<strong>hello</strong>\n"
+    end
   end
 end

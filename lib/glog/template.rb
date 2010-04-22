@@ -21,15 +21,15 @@ module Glog
       end
     end
 
-    def render(path = nil, locals = {})
+    def render(path = nil, locals = {}, &block)
       template = path ? File.read("templates" + File::SEPARATOR + path + '.haml') : @template
-      render_string(template, locals)
+      render_string(template, locals, block)
     end
 
     private
 
-    def render_string(string, locals = {})
-      Engine.new(string).render(self, @locals.merge(locals))
+    def render_string(string, locals = {}, inner = Proc.new { '' })
+      Engine.new(string).render(self, @locals.merge(locals)) { inner.call }
     end
 
     def find_for(page_path)
