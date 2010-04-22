@@ -4,7 +4,7 @@ module Glog
   class Template
 
     include Haml
-    
+
     attr_accessor :page, :locals, :template
 
     def self.wrap(page, locals = {})
@@ -51,6 +51,5 @@ module Glog
     def build_template_path(path)
       ["templates", path].flatten.join(File::SEPARATOR) + '.haml'
     end
-
   end
 end

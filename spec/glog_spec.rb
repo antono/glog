@@ -5,6 +5,7 @@ describe "Glog" do
   it "should have config accessor" do
     Glog.config = 'config'
     Glog.config.should == 'config'
+    Glog.config = nil
   end
 
   it "should respond to .env" do

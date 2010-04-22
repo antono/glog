@@ -11,17 +11,22 @@ module Glog
   @@env    = nil
 
   def self.config
-    @@config ||= YAML.load_file('glog.yaml')
+    if File.exist?('glog.yaml')
+      @@config ||= YAML.load_file('glog.yaml')
+    else
+      @@config = { 'root' => 'root' }
+    end
+    @@config
   end
-  
+
   def self.config=(config)
     @@config = config
   end
-  
+
   def self.env
     @@env
   end
-  
+
   def self.env=(env)
     @@env = env
   end
