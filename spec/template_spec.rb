@@ -57,6 +57,9 @@ describe Glog::Template do
   end
 
   describe "#render(path)" do
+
+    subject { Glog::Template.wrap(Glog::Page.first, :env => Glog.env, :config => Glog.config) }
+
     it "should render haml teplate from templates/{path} if path specified" do
       template = "%strong ololo"
       File.stub(:read).and_return(template)
@@ -64,18 +67,29 @@ describe Glog::Template do
     end
 
     it "should pass hash of locals to any template" do
-      subject.locals = { :env => { :ololo => 'hello' } }
       template = "%strong= env[:ololo]"
       File.stub(:read).and_return(template)
-      subject.render('hello/world').should == "<strong>hello</strong>\n"
+      locals = { :env => { :ololo => 'hello' }}
+      subject.render('hello/world', locals).should == "<strong>hello</strong>\n"
     end
 
-    it "should pass block to render engine if block given" do
+    it "shuld render block content as haml" do
       template = "%strong= yield"
       File.stub(:read).and_return(template)
       subject.render('hello/world') do
-        'hello'
-      end.should == "<strong>hello</strong>\n"
+        '%p hello1'
+      end.should == "<strong><p>hello1</p></strong>\n"
+    end
+
+    it "shuld render nested block content as haml" do
+      template = subject
+      parent_template = "%body= yield"
+      inner_template  = "%section"
+      File.should_receive(:read).with('templates/parent.haml').and_return(parent_template)
+      File.should_receive(:read).with('templates/inner.haml').and_return(inner_template)
+      template.render('parent') do
+        "%p hello\n= render('inner')"
+      end.should == "<body>\n  <p>hello</p>\n  <section></section>\n</body>\n"
     end
   end
 end

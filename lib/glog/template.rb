@@ -12,8 +12,8 @@ module Glog
     end
 
     def initialize(page, locals = nil)
-      @page      = page
-      @locals    = locals
+      @page   = page
+      @locals = locals
       if page.template
         @template = File.read(build_template_path(page.template))
       else
@@ -23,19 +23,23 @@ module Glog
 
     def render(path = nil, locals = {}, &block)
       template = path ? File.read("templates" + File::SEPARATOR + path + '.haml') : @template
-      render_string(template, locals, block)
+      inner_html = block_given? ? yield : ''
+      inner_html = inner_html == 0 ? '' : inner_html
+      render_string(template, locals, inner_html)
     end
 
-    private
-
-    def render_string(string, locals = {}, inner = Proc.new { '' })
-      Engine.new(string).render(self, @locals.merge(locals)) { inner.call }
+    def render_string(string, locals = {}, inner_html = '')
+      Engine.new(string).render(self, @locals.merge(locals)) do
+        render_string(inner_html)
+      end
     end
 
     def find_for(page_path)
       template_path = possible_paths_for(page_path).detect { |path| File.exist?(path) }
       File.read template_path || 'templates/default.haml'
     end
+
+    private
 
     def possible_paths_for(page_path)
       return [] if page_path.nil?
