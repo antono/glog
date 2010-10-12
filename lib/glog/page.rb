@@ -15,5 +15,8 @@ module Glog
       File.join(parent, name)
     end
 
+    def content_type
+      self.ctype ? self.ctype : 'text/html'
+    end
   end
 end

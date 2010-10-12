@@ -27,11 +27,11 @@ module Glog
     end
 
     def send_page(page)
-      [200, { 'Content-Type' => 'text/html' }, render_page(page)]
+      [200, { 'Content-Type' => ( page.content_type || 'text/html' ) }, [ render_page(page) ]]
     end
 
     def send_not_found
-      [404, { 'Content-Type' => 'text/html'}, '404 Not Found']
+      [404, { 'Content-Type' => 'text/html' }, [ '404 Not Found' ]]
     end
 
     def send_root_page

@@ -4,6 +4,8 @@ describe Glog::Server do
 
   include Rack::Test::Methods
 
+  before(:all) { Dir.chdir(FIXTURE_PATH) }
+
   let(:app) { create_from_fixture('example') }
 
   describe "GET /" do
@@ -20,7 +22,7 @@ describe Glog::Server do
 
   describe "GET /some/dir" do
     it "should try to render /some/dir/index if index exists" do
-      dir = 'spec/fixtures/example/pages/epo/2010'
+      dir = 'pages/epo/2010'
       File.exists?(dir).should be_true
       File.directory?(dir).should be_true
       get '/epo/2010'

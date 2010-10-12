@@ -1,5 +1,6 @@
 require 'rubygems'
 
+require 'yaml'
 require 'glog/env'
 require 'glog/page'
 require 'glog/template'
@@ -11,8 +12,9 @@ module Glog
   @@env    = nil
 
   def self.config
-    if File.exist?('glog.yaml')
-      @@config ||= YAML.load_file('glog.yaml')
+    return @@config if @@config
+    if File.exist?('./glog.yaml')
+      @@config ||= YAML.load_file('./glog.yaml')
     else
       @@config = { 'root' => 'root' }
     end
