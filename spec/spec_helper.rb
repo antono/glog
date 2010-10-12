@@ -3,9 +3,9 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'rubygems'
 require 'glog'
-require 'spec'
-require 'spec/autorun'
-require 'spec/interop/test'
+require 'rspec'
+require 'rspec/autorun'
+#require 'rspec/interop/test'
 require 'rack/test'
 
 require 'pp'
@@ -16,5 +16,5 @@ def create_from_fixture(name)
   @app = Glog::Server.new
 end
 
-Spec::Runner.configure do |config|
-end
+#RSpec::Runner.configure do |config|
+#end

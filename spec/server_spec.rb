@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Glog::Server do
 
   include Rack::Test::Methods
