@@ -37,4 +37,11 @@ describe Glog::Server do
     end
   end
 
+  describe "when page has custom content type" do
+    it "should set content type to custom" do
+      get '/page-with-custom-content-type'
+      last_response.content_type.should == 'custom/type'
+    end
+  end
+
 end # describe Server

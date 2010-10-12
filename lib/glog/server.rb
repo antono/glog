@@ -27,7 +27,7 @@ module Glog
     end
 
     def send_page(page)
-      [200, { 'Content-Type' => ( page.content_type || 'text/html' ) }, [ render_page(page) ]]
+      [200, { 'Content-Type' => page.content_type }, [ render_page(page) ]]
     end
 
     def send_not_found
