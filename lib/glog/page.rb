@@ -1,7 +1,12 @@
 require 'jadof'
+require 'rdiscount'
 
 module Glog
   class Page < JADOF::Page
+
+    DEFAULT_FORMATTERS['markdown'] = lambda { |text|
+      RDiscount.new(text, :smart, :filter_html).to_html
+    }
 
     def self.root
       get(Glog.config['root'])

@@ -11,10 +11,11 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.files = %w(lib/glog.rb lib/glog/page.rb lib/glog/server.rb lib/glog/template.rb lib/glog/env.rb)
-  s.add_runtime_dependency("rack",   [">= 1.1.0"])
-  s.add_runtime_dependency("jadof",  [">= 0.1.6"])
-  s.add_runtime_dependency("haml",   [">= 2.2.22"])
-  s.add_runtime_dependency("maruku", [">= 0.6.0"])
-  s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
-  s.add_development_dependency(%q<rack-test>, [">= 0.5.3"])
+  s.add_runtime_dependency("rack",      [">= 1.1.0"])
+  s.add_runtime_dependency("jadof",     [">= 0.1.6"])
+  s.add_runtime_dependency("haml",      [">= 2.2.22"])
+  s.add_runtime_dependency("rdiscount", [">= 1.6.8"])
+  s.add_development_dependency('rake', [">= 0.9.2"])
+  s.add_development_dependency('rspec', [">= 1.3.0"])
+  s.add_development_dependency('rack-test', [">= 0.5.3"])
 end

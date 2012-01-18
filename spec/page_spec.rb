@@ -9,7 +9,7 @@ describe Glog::Page do
       Glog::Page.root.title.should == 'Hello All'
     end
 
-    it "should return 'root' if  Glog.config['root'] == 'nil'" do
+    it "should return 'root' if Glog.config['root'] == 'nil'" do
       Glog.config = nil
       File.should_receive(:exist?).with('./glog.yaml').and_return(false)
       Glog::Page.root.title.should == 'Default Root Page'
