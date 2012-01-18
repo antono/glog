@@ -1,0 +1,3 @@
+gem 'rake'
+
+gemspec

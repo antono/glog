@@ -44,4 +44,4 @@ describe Glog::Server do
     end
   end
 
-end # describe Server
+end
