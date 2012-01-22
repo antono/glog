@@ -5,7 +5,7 @@ module Glog
   class Page < JADOF::Page
 
     DEFAULT_FORMATTERS['markdown'] = lambda { |text|
-      RDiscount.new(text, :smart, :filter_html).to_html
+      RDiscount.new(text, :smart).to_html
     }
 
     def self.root
