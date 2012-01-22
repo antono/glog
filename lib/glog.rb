@@ -8,29 +8,17 @@ require 'glog/server'
 
 module Glog
 
-  @@config = nil
-  @@env    = nil
+  class << self
+    attr_writer :config
+    attr_accessor :env
 
-  def self.config
-    return @@config if @@config
-    if File.exist?('./glog.yaml')
-      @@config ||= YAML.load_file('./glog.yaml')
-    else
-      @@config = { 'root' => 'root' }
+    def config
+      return @config if @config
+      if File.exist?('./glog.yaml')
+        @config ||= YAML.load_file('./glog.yaml')
+      else
+        @config = { 'root' => 'root' }
+      end
     end
-    @@config
   end
-
-  def self.config=(config)
-    @@config = config
-  end
-
-  def self.env
-    @@env
-  end
-
-  def self.env=(env)
-    @@env = env
-  end
-
 end
