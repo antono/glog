@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    glog (0.2.5)
+    glog (0.2.7)
       haml (>= 2.2.22)
       jadof (>= 0.1.6)
       rack (>= 1.1.0)
