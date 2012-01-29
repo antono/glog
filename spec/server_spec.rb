@@ -21,23 +21,27 @@ describe Glog::Server do
   end
 
   describe "GET /some/dir" do
-    it "should try to render /some/dir/index if index exists" do
-      dir = 'pages/epo/2010'
-      File.exists?(dir).should be_true
-      File.directory?(dir).should be_true
-      get '/epo/2010'
-      last_response.should be_ok
-      last_response.body.should match(/this is index/)
+    context "if index exist" do
+      let(:dir) { 'pages/epo/2010' }
+      it "should render /some/dir/index" do
+        File.exists?(dir).should be_true
+        File.directory?(dir).should be_true
+        get '/epo/2010'
+        last_response.should be_ok
+        last_response.body.should match(/this is index/)
+      end
     end
 
-    it "should return 404 if no index found" do
-      get '/nonexistent_page'
-      last_response.should_not be_ok
-      last_response.body.should match(/404/)
+    context "if there is no index page" do
+      it "should return 404 if no index found" do
+        get '/nonexistent_page'
+        last_response.should_not be_ok
+        last_response.body.should match(/404/)
+      end
     end
   end
 
-  describe "when page has custom content type" do
+  context "when page has custom content type" do
     it "should set content type to custom" do
       get '/page-with-custom-content-type'
       last_response.content_type.should == 'custom/type'
