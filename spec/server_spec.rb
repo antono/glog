@@ -24,8 +24,8 @@ describe Glog::Server do
     context "if index exist" do
       let(:dir) { 'pages/epo/2010' }
       it "should render /some/dir/index" do
-        File.exists?(dir).should be_true
-        File.directory?(dir).should be_true
+        expect(File.exists?(dir)).to be true
+        expect(File.directory?(dir)).to be true
         get '/epo/2010'
         last_response.should be_ok
         last_response.body.should match(/this is index/)
