@@ -1,5 +1,4 @@
-JADOF + Rack = cms/blogging engine
-==================================
+# JADOF + Rack = cms/blogging engine [![Build Status](https://travis-ci.org/antono/glog.svg?branch=master)](https://travis-ci.org/antono/glog)
 
 Glog is Rack Middleware to serve directory of files as blog or site.
 
@@ -23,8 +22,7 @@ Open http://localhost:8080/ in your favorite [Chromium](http://www.chromium.org/
 Tailor example code as you with until You get the site done.
 
 
-Plugins
--------
+## Plugins
 
 Use rack middleware as plugins:
 
@@ -34,8 +32,7 @@ Use rack middleware as plugins:
     require 'rack/google_analytics'
     use Rack::GoogleAnalytics, 'UA-1234567-0'
 
-Similar Projects
-----------------
+## Similar Projects
 
 - [ruby] toto is a git-powered, minimalist blog engine for the hackers of Oz.
   http://github.com/cloudhead/toto
@@ -44,8 +41,7 @@ Similar Projects
   markdown articles and presents them as a website.
   http://github.com/creationix/wheat
 
-Note on Patches/Pull Requests
------------------------------
+## Note on Patches/Pull Requests
 
 - Fork the project.
 - Make your feature addition or bug fix.
@@ -55,7 +51,6 @@ Note on Patches/Pull Requests
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 - Send me a pull request. Bonus points for topic branches.
 
-Copyright
----------
+## Copyright
 
-Copyright (c) 2010 Antono Vasiljev. See LICENSE for details.
+Copyright (c) 2010-2015 Antono Vasiljev. See LICENSE for details.
