@@ -23,7 +23,7 @@ Tailor example code as you with until You get the site done.
 
 ## Plugins
 
-Use rack middleware as plugins:
+You can use rack middleware as plugins:
 
     require 'rack/noie'
     use Rack::NoIE, :redirect => '/noie.html'
