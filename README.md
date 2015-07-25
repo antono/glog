@@ -2,8 +2,7 @@
 
 Glog is Rack Middleware to serve directory of files as blog or site.
 
-Glog inspired by [toto](http://github.com/cloudhead/toto) and based on
-[JADOF](http://github.com/remi/jadof).
+Glog uses [JADOF](http://github.com/remi/jadof) as file access layer.
 
 Glog makes less assumptions about your urls.
 **J**ust **a** **D**irectory **o**f **F**iles.
