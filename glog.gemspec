@@ -1,16 +1,18 @@
 Gem::Specification.new do |s|
   s.name = 'glog'
-  s.version = File.read('VERSION')
-  s.summary = %q{JADOF+Rack =  bogging/cms engine}
+  s.version = '1.0.0'
+  s.license = 'MIT'
+  s.summary = %q{JADOF+Rack = bogging/cms engine}
   s.description = %q{Static site generator and rack app}
   s.authors = ["Antono Vasiljev"]
-  s.date = %q{2010-03-28}
+  s.date = %q{2015-07-29}
   s.email = %q{antono.vasiljev@gmail.com}
   s.homepage = %q{http://github.com/antono/glog}
-  s.licenses = ['MIT']
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.files = %w(lib/glog.rb lib/glog/page.rb lib/glog/server.rb lib/glog/template.rb lib/glog/env.rb)
+  s.platform = Gem::Platform::RUBY
+
   s.add_runtime_dependency("rack",      ["~> 1.6"])
   s.add_runtime_dependency("jadof",     ["~> 0.1"])
   s.add_runtime_dependency("haml",      ["~> 4.0"])
