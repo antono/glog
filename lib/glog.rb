@@ -1,5 +1,3 @@
-require 'rubygems'
-
 require 'yaml'
 require 'glog/env'
 require 'glog/page'
