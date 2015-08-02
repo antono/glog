@@ -43,5 +43,5 @@ module Glog
       Template.wrap(page, locals).render
     end
 
-  end # Server
-end # Glog
+  end
+end
